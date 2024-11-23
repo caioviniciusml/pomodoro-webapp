@@ -1,12 +1,9 @@
-import Header from './components/header'
+import Nav from './components/nav.tsx'
 
-function App() {
-
+export default function App() {
   return (
-    <>
-      <Header />
-    </>
+    <div className="min-h-screen bg-black">
+      <Nav />
+    </div>
   )
 }
-
-export default App
