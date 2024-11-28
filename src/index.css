@@ -6,3 +6,9 @@
     font-family: "Bakbak";
     src: url("./fonts/BakbakOne-Regular.ttf");
 }
+
+@layer base {
+  :root {
+        --radius: 0.5rem;
+    }
+}
