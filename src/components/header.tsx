@@ -1,13 +1,15 @@
-import ConfigButtons from "./configButtons.tsx"
+import Logo from "./logo.tsx"
+import ThemeToggler from "./themeToggler.tsx"
+import SettingsButton from "./settingsButton.tsx"
 
-export default function Header(){
-    return(
-        <nav className="p-4 flex items-center justify-between">
-            <div>
-                <img src="" alt=""/>
-                <h1 className="font-bakbak font-extrabold text-3xl text-snow">POMO</h1>
+export default function Header() {
+    return (
+        <header className="p-4 sm:px-10 flex items-center justify-between">
+            <Logo />
+            <div className="flex items-center gap-5">
+                <ThemeToggler />
+                <SettingsButton />
             </div>
-            <ConfigButtons />
-        </nav>
+        </header>
     )
 }

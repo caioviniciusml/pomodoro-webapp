@@ -1,37 +1,43 @@
 import { useEffect, useState } from "react"
 
-export default function Clock({ initialMinutes = 'any'}){
+interface ClockProps{
+    pomodoroCycles: number;
+    focusTimeInSeconds: number;
+    breakTimeInSeconds: number;
+    longBreakTimeInSeconds: number;
+}
+
+export default function Clock({ pomodoroCycles = 4, focusTimeInSeconds = 1500, breakTimeInSeconds = 300, longBreakTimeInSeconds = 1800}: ClockProps){
     const [isRunning, setIsRunning] = useState(false)
-    const [timeInSeconds, setTimeInSeconds] = useState(initialMinutes * 60);
+    const [focusTime, setFocusTime] = useState(focusTimeInSeconds);
 
     useEffect(() =>{
         if(!isRunning) return;
-        if(timeInSeconds <= 0 ){
-            reset()
-            return
+
+        if(focusTime <= 0 ){
+            resetClock()
+            return;
         }
 
-        const interval = setInterval(() => {
-            setTimeInSeconds((prev) => prev - 1)
+        setInterval(() => {
+            setFocusTime(focusTime - 1);
         }, 1000);
+    }, [isRunning, focusTime])
 
-        return () => clearInterval(interval)
-    }, [isRunning, timeInSeconds])
-
-    const formatTime = () => {
-        let minutes = Math.floor(timeInSeconds / 60)
-        let seconds = timeInSeconds % 60
-
-        // if(minutes < 10) minutes = '0' + minutes
-        // if(seconds < 10) seconds = '0' + seconds
-        
-        return minutes + ':' + seconds
-    };
-
-    const reset = () =>{
-        setTimeInSeconds(initialMinutes * 60)
-        setIsRunning(false)
+    function resetClock(){
+        setFocusTime(focusTimeInSeconds);
+        setIsRunning(false);
     }
+
+    function formatTime(){
+        const minutes = Math.floor(focusTime / 60);
+        const seconds = focusTime % 60
+
+        const minutesFormatted = minutes < 10 ? '0' + minutes.toString() : minutes.toString();  
+        const secondsFormatted = seconds < 10 ? '0' + seconds.toString() : seconds.toString();   
+
+        return `${minutesFormatted}:${secondsFormatted}`;
+    };
 
     return(
         <div className="flex flex-col items-center text-snow font-bakbak">
@@ -39,10 +45,10 @@ export default function Clock({ initialMinutes = 'any'}){
             <span id="clock" className="text-9xl">{formatTime()}</span>
             <hr className="w-64 mt-4"/>
             <div id="player-controls" className="flex gap-4 mt-4 ">
-                <button onClick={reset}>
+                <button onClick={resetClock}>
                     <img className="h-10" src="../src/assets/stopButton.svg" alt=""/>
                 </button>
-                <button onClick={() => setIsRunning((prev) => !prev)}>
+                <button onClick={() => setIsRunning(!isRunning)}>
                     <img className="h-10" src={isRunning? "../src/assets/pauseButton.svg" : "../src/assets/playButton.svg"} alt="" />
                 </button>
                 <button>
