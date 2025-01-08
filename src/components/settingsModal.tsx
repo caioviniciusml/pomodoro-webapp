@@ -9,7 +9,7 @@ export default function SettingsModal({ settingsHandler }: SettingsModalProps) {
     function updateClockSettings(){
         settingsHandler();
     }
-
+    
     return (
         <>
             <div className="w-full h-full fixed top-0 left-1/2 -translate-x-1/2 backdrop-blur-sm" onClick={settingsHandler}></div>

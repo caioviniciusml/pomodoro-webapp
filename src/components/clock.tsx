@@ -7,7 +7,7 @@ interface ClockProps{
     longBreakTimeInSeconds: number;
 }
 
-export default function Clock({ pomodoroCycles = 4, focusTimeInSeconds = 1500, breakTimeInSeconds = 300, longBreakTimeInSeconds = 1800}: ClockProps){
+export default function Clock({ focusTimeInSeconds = 1500 }: ClockProps){
     const [isRunning, setIsRunning] = useState(false)
     const [focusTime, setFocusTime] = useState(focusTimeInSeconds);
 
@@ -15,7 +15,7 @@ export default function Clock({ pomodoroCycles = 4, focusTimeInSeconds = 1500, b
         if(!isRunning) return;
 
         if(focusTime <= 0 ){
-            resetClock()
+            // resetClock()
             return;
         }
 
